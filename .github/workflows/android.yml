@@ -13,9 +13,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-22.04
-    env:
-      GPLAY_KEYSTORE_PASSWORD: ${{ secrets.GPLAY_KEYSTORE_PASSWORD }}
-      CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -30,7 +27,6 @@ jobs:
         uses: dawidd6/action-download-artifact@v2
         continue-on-error: true
         with:
-          github_token: ${{secrets.LTW_CLONER_SECRET}}
           repo: PojavLauncherTeam/BigTinyWrapper
           workflow: android.yml
           workflow_conclusion: success
@@ -105,7 +101,7 @@ jobs:
           md5sum out/app-debug-noruntime.apk > out/app-debug-noruntime.md5
 
       - name: Upload APK
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: app-debug
           path: out/app-debug.*
